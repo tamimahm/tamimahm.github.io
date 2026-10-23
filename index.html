@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tamim Ahmed</title>
+<meta name="description" content="Tamim Ahmed, PhD. Interactive AI researcher and educator at the USC Iovine and Young Academy: deployed clinical AI systems, funded programs, teaching, and publications.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}</style>
+</head>
+<body>
+
+
+
+<style>
+/* Layout: a quiet single-column academic site — top nav, statement hero with headshot, then sections read top to bottom; 1080px measure, text column ~68ch. */
+:root{
+  --bg:#f7f8f7; --surface:#ffffff; --fg:#16201f; --muted:#5b6866; --rule:#dde3e1;
+  --accent:#1f4e79; --accent-ink:#ffffff; --tint:#e9eff5;
+  --display:"Newsreader",Georgia,"Times New Roman",serif;
+  --body:"Source Sans 3","Segoe UI",Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#101615; --surface:#171f1e; --fg:#eef2f1; --muted:#a3b0ad; --rule:#2a3533;
+  --accent:#8fb8e3; --accent-ink:#0f1a26; --tint:#1a2630; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#101615; --surface:#171f1e; --fg:#eef2f1; --muted:#a3b0ad; --rule:#2a3533;
+  --accent:#8fb8e3; --accent-ink:#0f1a26; --tint:#1a2630; color-scheme:dark }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1.12;margin:0;text-wrap:balance}
+h2{font-size:clamp(1.7rem,3vw,2.3rem)}
+h3{font-size:1.32rem;font-weight:600}
+p{margin:0}
+.eyebrow{font-family:var(--body);font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px;flex-wrap:wrap}
+.brand{font-family:var(--display);font-size:1.25rem;font-weight:600;color:var(--fg)}
+.links{display:flex;gap:22px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+.links a{color:var(--fg);font-size:.95rem;font-weight:500}
+
+/* hero */
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:48px;align-items:center;padding-block:72px 56px}
+.hero h1{font-size:clamp(2.1rem,4.6vw,3.6rem);letter-spacing:-.01em}
+.hero .name{margin-bottom:18px}
+.hero .lede{margin-top:22px;font-size:1.15rem;color:var(--muted);max-width:60ch}
+.scroll{margin-top:34px;font-size:.85rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.portrait{aspect-ratio:4/5;max-width:100%;border-radius:14px;background:var(--tint);border:1px solid var(--rule);display:grid;place-items:center;overflow:hidden}
+.portrait img{width:100%;height:100%;object-fit:cover;display:block}
+.portrait .ph{font-family:var(--display);font-size:3.2rem;color:var(--accent);opacity:.55}
+
+/* sections */
+section{border-top:1px solid var(--rule)}
+section .wrap{padding-block:60px}
+.head{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:32px;align-items:start}
+.head p.intro{max-width:68ch;margin-top:10px}
+.stack{display:grid;gap:14px;max-width:68ch}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 40px;margin-top:34px}
+.two > *{min-width:0}
+
+/* projects */
+.project{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:32px;padding-block:30px;border-top:1px solid var(--rule)}
+.project:first-of-type{border-top:0;padding-top:0}
+.meta{display:grid;gap:6px;align-content:start;font-size:.9rem;color:var(--muted)}
+.meta b{color:var(--fg);font-weight:600}
+.pill{display:inline-block;font-size:.74rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:999px;background:var(--tint);color:var(--accent);width:max-content}
+.project .text{display:grid;gap:12px;max-width:68ch}
+.project ul{margin:0;padding-left:1.1em;display:grid;gap:6px}
+
+/* course path */
+.path{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:30px}
+.step{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:18px 18px 20px;display:grid;gap:8px;min-width:0}
+.step .n{font-family:var(--display);font-size:1.6rem;color:var(--accent);line-height:1}
+.step h3{font-size:1.05rem}
+.step p{font-size:.95rem;color:var(--muted)}
+
+/* lists */
+.pubs{margin:0;padding-left:1.4em;display:grid;gap:10px;max-width:72ch}
+.pubs li{padding-left:.3em}
+.pubs i{color:var(--muted)}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:18px;display:grid;gap:8px;min-width:0}
+.card .amt{font-family:var(--display);font-size:1.55rem;color:var(--accent);font-variant-numeric:tabular-nums}
+.card p{font-size:.95rem;color:var(--muted)}
+.partners{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 40px;margin-top:30px;list-style:none;padding:0}
+.partners li{padding:10px 0;border-bottom:1px solid var(--rule);font-size:1rem}
+.partners b{font-weight:600}
+
+/* contact / footer */
+.contact .wrap{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:32px}
+.contact .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.copy{font:inherit;font-size:.85rem;font-weight:600;color:var(--accent);background:var(--tint);border:0;border-radius:6px;padding:6px 10px;cursor:pointer}
+.copy:hover{filter:brightness(.96)}
+footer{border-top:1px solid var(--rule)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:26px;font-size:.9rem;color:var(--muted)}
+footer .cta{font-size:1.05rem;color:var(--accent);font-weight:600}
+
+@media (max-width:820px){
+  .hero .wrap{grid-template-columns:1fr;gap:28px;padding-block:44px 36px}
+  .portrait{max-width:280px}
+  .head,.project,.contact .wrap{grid-template-columns:1fr;gap:12px}
+  .project{padding-block:24px}
+  .two,.partners{grid-template-columns:1fr}
+  .path{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid3{grid-template-columns:1fr}
+  section .wrap{padding-block:44px}
+}
+@media (max-width:480px){ .path{grid-template-columns:1fr} }
+</style>
+
+<nav class="nav" aria-label="Site">
+  <div class="wrap">
+    <a class="brand" href="#top">Tamim Ahmed</a>
+    <ul class="links">
+      <li><a href="#research">Research</a></li>
+      <li><a href="#teaching">Teaching</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#funding">Funding &amp; Partners</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow name">Tamim Ahmed, PhD</p>
+      <h1>Experts make judgments they cannot fully explain. I build AI that learns those judgments and hands them back, sharper.</h1>
+      <p class="lede">Postdoctoral Research Associate and faculty lead for computation, Human-Technology Interaction Lab, USC Iovine and Young Academy. Instructor of record, IDSN 543: Augmented Intelligence.</p>
+      <p class="scroll">Scroll to read more ↓</p>
+    </div>
+    <div class="portrait" aria-label="Portrait">
+      <!-- Replace this placeholder with your headshot: <img src="headshot.jpg" alt="Tamim Ahmed"> -->
+      <span class="ph">TA</span>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">About</p>
+      <div class="stack">
+        <p>I am an interactive-AI researcher and educator at the University of Southern California. I build machine-learning systems that augment expert judgment and put them into daily use, and I teach students to do the same. I completed my Ph.D. in Biomedical Engineering at USC in 2026. My dissertation developed a probabilistic computational model for explainable augmented intelligence in clinical practice.</p>
+        <p>I grew up in Bangladesh, studied electrical engineering at BUET, and built medical-device prototypes before graduate school. Since then I have worked with clinicians, surgeons, engineers, designers, and business partners across USC, Shirley Ryan AbilityLab, Emory University, Virginia Tech, Arizona State University, and Johnson &amp; Johnson MedTech. None of those problems fit inside one discipline, and that is the way I work and teach.</p>
+        <p>Every project below follows one method: embed with the experts, make their tacit judgment explicit, build the model so that it mirrors how they reason, validate it against them, and hand the result back as a product they will actually use.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Research &amp; projects</p>
+      <p class="intro">Deployed systems, funded programs, and the method they share. Roles, partners, and status are listed for each.</p>
+    </div>
+
+    <div class="projects" style="margin-top:34px">
+      <article class="project">
+        <div class="meta">
+          <span class="pill">In daily clinical use</span>
+          <span><b>Role</b> Computational lead</span>
+          <span><b>Partners</b> Shirley Ryan AbilityLab · Emory University · ten occupational therapists</span>
+          <span><b>Period</b> 2019 – present</span>
+        </div>
+        <div class="text">
+          <h3>xAARA: Explainable and Augmented Automated Rehabilitation Assessment</h3>
+          <p>Therapists score the Action Research Arm Test by watching a stroke survivor perform nineteen tasks. xAARA scores the same tasks from multi-view video and returns, with every score, calibrated uncertainty and explanations at the task, movement-phase, and movement-quality levels. It was co-designed over a 30-month embedded study with ten occupational therapists and 107 stroke survivors. I designed the multi-camera capture system, the annotation and validation interfaces, and the database, turned the therapists' tacit judgment into an explicit vocabulary and data design, and built the engine that combines 692 calibrated models and defers uncertain cases to the clinician.</p>
+          <ul>
+            <li>94.2% task accuracy across 88 stroke survivors; 96.1% reduction in predictive uncertainty relative to single-clinician scoring.</li>
+            <li>Treating therapists agree with automated ratings more than 90% of the time; four external clinicians validated the system and said they would adopt it.</li>
+            <li>Published in ACM TOCHI (2026) and IEEE TNSRE (2024); fusion engine in preparation for npj Digital Medicine.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="meta">
+          <span class="pill">Published method</span>
+          <span><b>Role</b> Lead author</span>
+          <span><b>With</b> Prof. Thanassis Rikakis</span>
+          <span><b>Venue</b> Frontiers in Artificial Intelligence 9:1715898 (2026)</span>
+        </div>
+        <div class="text">
+          <h3>The bidirectional translator</h3>
+          <p>The computational core every project here shares. A complex task is represented as a nested network whose components are partly explicit and partly tacit. A translator carries the expert's judgment into the computation and carries the computation's evidence back to the expert in a form they trust, admitting new structure only after it passes checks for compatibility, coherence, and explanatory gain, and only after the experts validate it. It is the method behind xAARA, the surgical system below, and the learning model.</p>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="meta">
+          <span class="pill">In pilot</span>
+          <span><b>Role</b> Lead faculty for the collaboration · computational lead · PI of the 2025 student sprint</span>
+          <span><b>Partners</b> Johnson &amp; Johnson MedTech · Keck School of Medicine of USC · USC Iovine and Young Academy</span>
+          <span><b>Period</b> 2025 – present</span>
+        </div>
+        <div class="text">
+          <h3>DISH: AI-assisted assessment of post-operative surgical-site outcomes</h3>
+          <p>A clinical decision-support system that classifies surgical-site wounds from images and assists post-surgical care teams, with patient context modeled from structured and unstructured records for more than 1,000 patients. The pilot with three surgeons runs on an annotation web portal that Academy students designed, built, and deployed under my mentorship in the research sprint I led as principal investigator. It was their first product for a real client. A pilot proposal of about $270,000 with Keck is in preparation for 2027–2028 as the step toward an R01-scale submission.</p>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="meta">
+          <span class="pill">Full proposal invited</span>
+          <span><b>Role</b> Co-Investigator, 50% effort</span>
+          <span><b>PI</b> Dr. Monica A. Perez (Hines VA · Shirley Ryan AbilityLab)</span>
+          <span><b>Sponsor</b> U.S. Department of Veterans Affairs · $800,000 over four years</span>
+        </div>
+        <div class="text">
+          <h3>Automated quantification of upper-limb function in Veterans with neurological deficits</h3>
+          <p>Aim 1 deploys xAARA during inpatient rehabilitation to track recovery in 50 Veterans with stroke, with pre-to-post assessment every two weeks across six weeks of therapy. Aim 2 extends the framework to the GRASSP assessment in 50 Veterans with cervical spinal cord injury. I will lead deployment of the capture and assessment system at Hines VA, the extension to GRASSP prehension tasks, and the network-based analysis of pre-to-post change. Co-investigators include Prof. Thanassis Rikakis and Dr. Mary Ellen Stoykov, with Drs. James Patton, Milap Sandhu, William Z. Rymer, and Steven L. Wolf.</p>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="meta">
+          <span class="pill">Manuscript in preparation</span>
+          <span><b>Role</b> Computational co-lead · second author</span>
+          <span><b>With</b> Prof. Thanassis Rikakis · Prof. SeoYoon Sung · the HTI Lab</span>
+          <span><b>Partner</b> Verizon, through the Academy</span>
+        </div>
+        <div class="text">
+          <h3>A computable model of reflective learning</h3>
+          <p>The Academy's own pedagogy, modeled. We extracted an auditable skill vocabulary from 35 course syllabi, had faculty consolidate it into ten categories, estimated each skill's spread across domains with an ensemble of language models, and tested the resulting network with three student product teams. On that base we defined creativity within the framework and specified a computable model of the stages of learning, with the translator as its engine. For submission to Thinking Skills and Creativity. I will lead the computational implementation that follows.</p>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="meta">
+          <span class="pill">Residency</span>
+          <span><b>Where</b> Shirley Ryan AbilityLab, Chicago</span>
+          <span><b>Period</b> May – December 2024</span>
+        </div>
+        <div class="text">
+          <h3>Wearable kinematics and musculoskeletal modeling</h3>
+          <p>An IMU-driven inverse-kinematics pipeline from Xsens and SageMotion sensors into OpenSim for gait and balance tests, with two commercial IMU systems cross-validated toward low-burden, reduced-sensor motion capture, and a clinician-facing movement-impairment dashboard for post-acute stroke rehabilitation.</p>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="meta">
+          <span class="pill">Early work</span>
+          <span><b>Where</b> DSP Research Lab, BUET, Dhaka</span>
+          <span><b>Period</b> 2017 – 2019</span>
+        </div>
+        <div class="text">
+          <h3>Medical-device prototypes</h3>
+          <p>Deep-learning ultrasound elastography reconstruction (U.S. provisional patent 62/816,344, “Deep Learning-Based Shear Wave Imaging”), the near-infrared vein-detection engine for a prototype venipuncture device (IEEE GHTC 2017; IEEE WIECON-ECE 2017), and single-channel EEG affective-state classification.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="teaching">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Teaching</p>
+      <div class="stack">
+        <h2>I teach the whole process, because I have done the whole process.</h2>
+        <p class="intro">IDSN 543: Augmented Intelligence, designed from scratch and taught as instructor of record since spring 2025, teaches students to fit a model into a working pipeline across four cycles: image, time series, language, and video. Each cycle runs the way a real project runs. Students design the data structure, design the collection process, engineer the features, and only then build the model. They audit it against data they collected and against real-world data, evaluate it in a fit memo, deploy it as a working pipeline, and defend it in front of the class. They use AI tools throughout and are graded on what those tools cannot do for them.</p>
+      </div>
+    </div>
+
+    <div class="two">
+      <div class="stack">
+        <h3>Evidence</h3>
+        <p>In the most recent evaluations, inclusive practice was my strongest area (3.54 of 4) and encouraging questions and discussion my highest-rated practice (3.57). Students described the course as “extremely applicable to today's world” and “my favorite academy course so far.”</p>
+        <p>Students have gone on to data-science internships and full-time roles at major companies, and several have used what they built in the course to improve their own startups.</p>
+      </div>
+      <div class="stack">
+        <h3>Teaching through practice</h3>
+        <p>In the 2025 Johnson &amp; Johnson MedTech research sprint, which I ran as principal investigator, ten students chosen for transdisciplinary balance designed, built, and deployed the annotation portal now used in the surgical pilot. One served as project manager; the client's deadlines were the schedule; the portal met every requirement the stakeholders set.</p>
+        <p>I also co-designed the three-course computational module of the Human-Technology Interaction degree (Python for Machine Intelligence, Augmented Intelligence, Generative AI) and have mentored more than twenty graduate and undergraduate students.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:44px">The course path</h3>
+    <p class="intro" style="max-width:68ch;margin-top:8px">One package, in the order the work actually happens. Each course teaches one stage of the process behind the projects above.</p>
+    <div class="path">
+      <div class="step"><span class="n">1</span><h3>ACAD 222 · Intro to Machine Intelligence</h3><p>What a model is. Taught by Prof. Rikakis.</p></div>
+      <div class="step"><span class="n">2</span><h3>IDSN 543 · Augmented Intelligence</h3><p>Fit one model into one pipeline: image, time series, language, video. Brief, build, break, fit, defend.</p></div>
+      <div class="step"><span class="n">3</span><h3>IDSN 544 · Transformative AI in Society (updated)</h3><p>Compose pipelines, ensemble models into one calibrated decision, put the human translator in charge of when the system decides and when it defers, and finish with the LLM layer.</p></div>
+      <div class="step"><span class="n">4</span><h3>Augmenting the Expert (new)</h3><p>Elicit the judgment of a surgeon, therapist, coach, or designer; model it; validate it against the expert; productize it as a human-in-the-loop interface.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="publications">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Publications</p>
+      <p class="intro">Twelve peer-reviewed publications, four manuscripts under review or in preparation, 86 citations, and one provisional patent. Full list on <a href="https://scholar.google.com/citations?user=kDhKjksAAAAJ&hl=en">Google Scholar</a>.</p>
+    </div>
+    <div class="two">
+      <div>
+        <h3>Selected</h3>
+        <ol class="pubs" style="margin-top:12px">
+          <li>Ahmed, T., Rikakis, T., Kelliher, A., Khan, M. S. S., &amp; Guo, Z. (2026). xAARA: Explainable and Augmented Automated Rehabilitation Assessment. <i>ACM Transactions on Computer-Human Interaction.</i> doi:10.1145/3848511</li>
+          <li>Ahmed, T., &amp; Rikakis, T. (2026). A Methodology for Integrating AI into Embodied Human Intelligence for the Performance of Complex Tasks. <i>Frontiers in Artificial Intelligence, 9</i>, 1715898.</li>
+          <li>Ahmed, T., Rikakis, T., Kelliher, A., &amp; Wolf, S. (2024). A Hierarchical Bayesian Model for Cyber-Human Assessment of Movement in Upper-Extremity Stroke Rehabilitation. <i>IEEE Transactions on Neural Systems and Rehabilitation Engineering, 32</i>, 3157–3166.</li>
+          <li>Ahmed, T., et al. (2021). Automated Movement Assessment in Stroke Rehabilitation. <i>Frontiers in Neurology.</i></li>
+          <li>Lee, J., &amp; Ahmed, T. (2025). Automatic Temporal Segmentation for Post-Stroke Rehabilitation. <i>WACV 2025.</i></li>
+          <li>Ahmed, T., et al. (2024). Advances in Computer Vision for Home-Based Stroke Rehabilitation. In <i>Computer Vision: Challenges, Trends, and Opportunities.</i> Chapman &amp; Hall/CRC.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Under review and in preparation</h3>
+        <ol class="pubs" style="margin-top:12px">
+          <li>Ahmed, T., &amp; Rikakis, T. Enhancing Clinician Decision-Making via Uncertainty-Aware Multi-Expert Fusion for Stroke Rehabilitation. Preprint arXiv:2606.24960. <i>For npj Digital Medicine.</i></li>
+          <li>Ahmed, T., et al. Implementation Potential of AI-Informed Stroke Rehabilitation Assessments: A Qualitative Study. <i>For JMIR.</i></li>
+          <li>Rikakis, T., Ahmed, T., Sung, S., et al. Modeling Reflective Learning and Cross-Cutting Creativity for Addressing Complexity in Higher Education. <i>For Thinking Skills and Creativity.</i></li>
+          <li>Ahmed, T., et al. A Multi-Camera Data Segmentation and Imputation Block for Cyber-Human Assessment of Movement. <i>Under review, IEEE JBHI.</i></li>
+        </ol>
+        <h3 style="margin-top:28px">Patent</h3>
+        <p style="margin-top:8px">“Deep Learning-Based Shear Wave Imaging,” U.S. Provisional Patent Application No. 62/816,344.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="funding">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Funding &amp; partners</p>
+      <p class="intro">Funded or in proposal, and the institutions the work runs with.</p>
+    </div>
+    <div class="grid3">
+      <div class="card"><span class="amt">$800,000</span><h3>Department of Veterans Affairs</h3><p>Automated Quantification of Upper-Limb Function in Veterans with Neurological Deficits. Four years. Pre-proposal approved; full proposal invited (2026). Co-Investigator, 50% effort.</p></div>
+      <div class="card"><span class="amt">~$270,000</span><h3>Johnson &amp; Johnson MedTech pilot</h3><p>Clinical pilot of DISH with the Keck School of Medicine, 2027–2028, in preparation with Michael Kanazawa, as preliminary data for an R01-scale NIH or NSF submission.</p></div>
+      <div class="card"><span class="amt">PI · 2025</span><h3>J&amp;J MedTech Research Sprint</h3><p>Ten-student transdisciplinary team; delivered the annotation portal now in surgical pilot. Doctoral research supported by NSF #2014499 and NIDILRR #90REGE0010; Pratt Fellowship.</p></div>
+    </div>
+    <ul class="partners">
+      <li><b>Johnson &amp; Johnson MedTech</b> · lead faculty for the Academy's collaboration</li>
+      <li><b>Keck School of Medicine of USC</b> · surgeon partners; pilot proposal</li>
+      <li><b>Shirley Ryan AbilityLab</b> · xAARA's clinical home; Arms + Hands Lab; 2024 residency</li>
+      <li><b>Edward Hines Jr. VA Hospital</b> · deployment site for the VA program</li>
+      <li><b>Emory University</b> · Dr. Steven L. Wolf, five-plus-year collaboration</li>
+      <li><b>USC Viterbi School of Engineering</b> · Brain-Body Dynamics Lab (Prof. Valero-Cuevas); doctoral training</li>
+      <li><b>USC Division of Biokinesiology and Physical Therapy</b> · Prof. James Gordon, dissertation committee</li>
+      <li><b>Verizon</b> · partner on the Academy's reflective-learning toolkit</li>
+    </ul>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <p class="eyebrow">Contact</p>
+    <div class="stack">
+      <h2>Research, teaching, and partnership inquiries</h2>
+      <div class="row"><span id="email" style="font-weight:600">tamimahm@usc.edu</span><button class="copy" id="copyBtn" type="button">Copy email</button></div>
+      <p><a href="https://www.linkedin.com/in/-tamimahmed">LinkedIn</a> · <a href="https://scholar.google.com/citations?user=kDhKjksAAAAJ&hl=en">Google Scholar</a> · <a href="https://sites.usc.edu/hti/">HTI Lab</a> · <a href="https://lnkd.in/gZxeWHEH">Dissertation</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="cta" href="#contact">Research &amp; partnership inquiries →</a>
+    <span>© 2026 Tamim Ahmed · USC Iovine and Young Academy</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var b=document.getElementById('copyBtn'), e=document.getElementById('email');
+  if(!b||!e) return;
+  b.addEventListener('click',function(){
+    var t=e.textContent;
+    var done=function(){ b.textContent='Copied'; setTimeout(function(){ b.textContent='Copy email'; },1600); };
+    var fallback=function(){ var r=document.createRange(); r.selectNodeContents(e); var s=window.getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent='Selected, press Ctrl+C'; setTimeout(function(){ b.textContent='Copy email'; },2200); };
+    try{ if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(done,fallback); } else { fallback(); } }catch(err){ fallback(); }
+  });
+})();
+</script>
+
+</body>
+</html>
