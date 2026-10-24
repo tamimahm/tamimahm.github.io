@@ -89,7 +89,7 @@ p{margin:0}
 
 /* expertise book */
 .exp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center;margin-top:48px}
-.bookwrap{display:grid;place-items:center;perspective:1800px;padding:20px 0}
+.bookwrap{display:grid;justify-items:center;gap:26px;perspective:1800px;padding:20px 0}
 .book{position:relative;width:min(100%,520px);aspect-ratio:1.55/1;transform-style:preserve-3d}
 .pg{position:absolute;top:0;bottom:0;width:50%;background:linear-gradient(90deg,#f1f1ee,#f8f8f6);box-shadow:0 24px 60px rgba(0,0,0,.6);display:grid;place-items:center;overflow:hidden}
 .pg.left{left:0;border-radius:6px 0 0 6px;background:linear-gradient(270deg,#e6e6e2,#f4f4f1 18%)}
@@ -114,7 +114,7 @@ p{margin:0}
 .chip{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fg2);border:1px solid var(--rule);border-radius:999px;padding:7px 13px;transition:border-color .3s,color .3s}
 .chip:hover{border-color:var(--fg2);color:var(--white)}
 .exp .desc{display:grid;gap:16px;color:var(--fg2);font-size:1.02rem}
-.ctl{display:flex;align-items:center;gap:14px;margin-top:8px}
+.ctl{display:flex;align-items:center;gap:14px}
 .ctl button{width:48px;height:48px;border-radius:50%;border:1px solid var(--rule);background:none;color:var(--fg);font-size:1.1rem;cursor:pointer;transition:background .3s,border-color .3s}
 .ctl button:hover{background:var(--white);color:var(--bg);border-color:var(--white)}
 .ctl .count{font-size:.78rem;letter-spacing:.26em;color:var(--muted);margin-left:8px}
@@ -290,16 +290,11 @@ footer .cta{color:var(--white);font-size:.95rem;letter-spacing:.02em;text-transf
   <div class="wrap">
     <p class="eyebrow arrow">Areas of expertise</p>
     <div class="exp">
-      <div class="bookwrap"><div class="book" id="book" aria-hidden="true"><div class="pg left" id="pgL"></div><div class="pg right" id="pgR"></div><div class="spine"></div></div></div>
+      <div class="bookwrap"><div class="book" id="book" aria-hidden="true"><div class="pg left" id="pgL"></div><div class="pg right" id="pgR"></div><div class="spine"></div></div><div class="ctl"><button id="prev" aria-label="Previous">←</button><button id="next" aria-label="Next">→</button><span class="count" id="count">01 / 12</span></div></div>
       <div class="text">
         <h2 id="expTitle"></h2>
         <div class="chips" id="expChips"></div>
         <div class="desc" id="expDesc"></div>
-        <div class="ctl">
-          <button id="prev" aria-label="Previous">←</button>
-          <button id="next" aria-label="Next">→</button>
-          <span class="count" id="count">01 / 12</span>
-        </div>
       </div>
     </div>
   </div>
