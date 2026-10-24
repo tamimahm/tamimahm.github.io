@@ -87,18 +87,27 @@ p{margin:0}
 .quick b{font-family:var(--display);font-weight:600;color:var(--white)}
 .quick span{font-size:.9rem;color:var(--muted)}
 
-/* expertise carousel */
+/* expertise book */
 .exp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center;margin-top:48px}
-.stack{position:relative;height:460px;display:grid;place-items:center}
-.card{position:absolute;width:270px;height:390px;background:var(--card);border-radius:4px;box-shadow:0 20px 50px rgba(0,0,0,.55);display:grid;place-items:center;transition:transform .6s cubic-bezier(.2,.7,.2,1),opacity .4s ease;will-change:transform}
-.card svg{width:78%;height:auto}
-.card.b1{transform:rotate(-8deg) translate(-26px,8px) scale(.96);opacity:.85;background:#e9e9e6}
-.card.b2{transform:rotate(7deg) translate(24px,10px) scale(.96);opacity:.85;background:#e9e9e6}
-.card.b3{transform:rotate(-14deg) translate(-44px,22px) scale(.92);opacity:.6;background:#dedddb}
-.card.b4{transform:rotate(13deg) translate(42px,24px) scale(.92);opacity:.6;background:#dedddb}
-.card.front{transform:none;opacity:1;z-index:5}
-.card.front.deal{animation:deal .6s cubic-bezier(.2,.7,.2,1)}
-@keyframes deal{from{transform:translateY(30px) rotate(-3deg) scale(.96);opacity:0}to{transform:none;opacity:1}}
+.bookwrap{display:grid;place-items:center;perspective:1800px;padding:20px 0}
+.book{position:relative;width:min(100%,520px);aspect-ratio:1.55/1;transform-style:preserve-3d}
+.pg{position:absolute;top:0;bottom:0;width:50%;background:linear-gradient(90deg,#f1f1ee,#f8f8f6);box-shadow:0 24px 60px rgba(0,0,0,.6);display:grid;place-items:center;overflow:hidden}
+.pg.left{left:0;border-radius:6px 0 0 6px;background:linear-gradient(270deg,#e6e6e2,#f4f4f1 18%)}
+.pg.right{right:0;border-radius:0 6px 6px 0;background:linear-gradient(90deg,#e8e8e4,#f6f6f3 16%)}
+.pg svg{width:66%;height:auto}
+.pg .ch{display:grid;gap:10px;text-align:center;padding:18px}
+.pg .ch .n{font-family:var(--display);font-weight:300;font-size:3rem;color:#111;line-height:1}
+.pg .ch .t{font-family:var(--body);font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:#555}
+.pg .ch .rule{width:40px;height:1px;background:#999;margin:0 auto}
+.spine{position:absolute;left:50%;top:0;bottom:0;width:2px;background:rgba(0,0,0,.25);transform:translateX(-1px);z-index:3}
+.leaf{position:absolute;top:0;bottom:0;left:50%;width:50%;transform-origin:left center;transform-style:preserve-3d;z-index:5;transition:transform .9s cubic-bezier(.4,.1,.2,1)}
+.leaf .face{position:absolute;inset:0;backface-visibility:hidden;display:grid;place-items:center;overflow:hidden}
+.leaf .front{background:linear-gradient(90deg,#e8e8e4,#f6f6f3 16%);border-radius:0 6px 6px 0}
+.leaf .back{background:linear-gradient(270deg,#e6e6e2,#f4f4f1 18%);border-radius:6px 0 0 6px;transform:rotateY(180deg)}
+.leaf.turn{transform:rotateY(-180deg)}
+.leaf.rev{transform:rotateY(-180deg);transition:none}
+.leaf.rev.turnback{transform:rotateY(0deg);transition:transform .9s cubic-bezier(.4,.1,.2,1)}
+.leaf .face svg{width:66%;height:auto}
 .exp .text{display:grid;gap:22px}
 .exp h2{font-size:clamp(2rem,3.6vw,2.8rem)}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
@@ -109,6 +118,7 @@ p{margin:0}
 .ctl button{width:48px;height:48px;border-radius:50%;border:1px solid var(--rule);background:none;color:var(--fg);font-size:1.1rem;cursor:pointer;transition:background .3s,border-color .3s}
 .ctl button:hover{background:var(--white);color:var(--bg);border-color:var(--white)}
 .ctl .count{font-size:.78rem;letter-spacing:.26em;color:var(--muted);margin-left:8px}
+@media (prefers-reduced-motion: reduce){.leaf{transition:none !important}}
 
 /* research */
 .lead{max-width:66ch;color:var(--fg2);font-size:1.08rem;margin-top:18px}
@@ -129,6 +139,20 @@ p{margin:0}
 .step{border:1px solid var(--rule);border-radius:8px;padding:18px;display:grid;gap:8px;min-width:0}
 .step b{font-family:var(--display);color:var(--white)}
 .step p{font-size:.94rem;color:var(--fg2)}
+
+/* domain cards */
+.dcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:40px}
+.dcard{display:grid;grid-template-rows:220px auto;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--bg2);transition:transform .4s cubic-bezier(.2,.7,.2,1),border-color .3s,box-shadow .4s;min-width:0}
+.dcard:hover{transform:translateY(-6px);border-color:var(--fg2);box-shadow:0 26px 60px rgba(0,0,0,.55);text-decoration:none}
+.dcard .im{background:#fff;overflow:hidden}
+.dcard .im img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .6s ease}
+.dcard:hover .im img{transform:scale(1.04)}
+.dcard .body{padding:20px 22px 22px;display:grid;gap:8px}
+.dcard .body p{color:var(--fg2);font-size:.98rem}
+.dcard .go{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:6px;transition:color .3s}
+.dcard:hover .go{color:var(--white)}
+.back{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:inline-block;margin-bottom:28px}
+@media (max-width:860px){.dcards{grid-template-columns:1fr}}
 
 /* speaking */
 .talks{display:grid;gap:28px;margin-top:40px}
@@ -173,8 +197,9 @@ p{margin:0}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:36px}
 .fcard{border:1px solid var(--rule);border-radius:10px;background:var(--bg2);overflow:hidden;cursor:pointer;transition:transform .35s ease,border-color .3s,box-shadow .35s;min-width:0}
 .fcard:hover{transform:translateY(-5px);border-color:var(--fg2);box-shadow:0 22px 50px rgba(0,0,0,.5)}
-.fcard .logo{height:120px;background:#fff;display:grid;place-items:center;padding:20px}
-.fcard .logo img{max-height:70px;width:auto;max-width:80%}
+.fcard .logo{height:120px;background:var(--tile,#fff);display:grid;place-items:center;padding:18px}
+.fcard .logo img{max-height:84px;width:auto;max-width:86%;object-fit:contain}
+.fcard .logo img + .mark{display:none}
 .fcard .mark{font-family:var(--display);font-weight:600;color:#111;font-size:1.25rem;text-align:center;letter-spacing:-.01em;line-height:1.2}
 .fcard .body{padding:18px 18px 20px;display:grid;gap:6px}
 .fcard .amt{font-family:var(--display);font-weight:600;font-size:1.3rem;color:var(--white);font-variant-numeric:tabular-nums}
@@ -201,13 +226,11 @@ footer .cta{color:var(--white);font-size:.95rem;letter-spacing:.02em;text-transf
   .quick,.steps,.grid{grid-template-columns:1fr 1fr}
   .cycle{grid-template-columns:repeat(2,minmax(0,1fr))}
   .talk .body{padding:22px}
-  .stack{height:420px}
   .portrait{max-width:420px}
   .view .wrap{padding-block:56px 48px}
 }
 @media (max-width:520px){
   .quick,.steps,.grid,.gal{grid-template-columns:1fr}
-  .card{width:230px;height:330px}
   .pubs li{grid-template-columns:1fr;gap:4px}
 }
 </style>
@@ -267,7 +290,7 @@ footer .cta{color:var(--white);font-size:.95rem;letter-spacing:.02em;text-transf
   <div class="wrap">
     <p class="eyebrow arrow">Areas of expertise</p>
     <div class="exp">
-      <div class="stack" id="stack" aria-hidden="true"></div>
+      <div class="bookwrap"><div class="book" id="book" aria-hidden="true"><div class="pg left" id="pgL"></div><div class="pg right" id="pgR"></div><div class="spine"></div></div></div>
       <div class="text">
         <h2 id="expTitle"></h2>
         <div class="chips" id="expChips"></div>
@@ -275,7 +298,7 @@ footer .cta{color:var(--white);font-size:.95rem;letter-spacing:.02em;text-transf
         <div class="ctl">
           <button id="prev" aria-label="Previous">←</button>
           <button id="next" aria-label="Next">→</button>
-          <span class="count" id="count">01 / 06</span>
+          <span class="count" id="count">01 / 12</span>
         </div>
       </div>
     </div>
@@ -287,15 +310,37 @@ footer .cta{color:var(--white);font-size:.95rem;letter-spacing:.02em;text-transf
   <div class="wrap">
     <p class="eyebrow arrow">HTI Lab · research outcomes</p>
     <h2 style="margin-top:18px">Three domains, one process.</h2>
-    <p class="lead">Every system below was built the same way: embed with the experts, turn their tacit judgment into an explicit vocabulary and a data design, build the models on that data, validate against the experts, and hand the result back as something they use. The images are from the systems themselves.</p>
+    <p class="lead">Every system below was built the same way: embed with the experts, turn their tacit judgment into an explicit vocabulary and a data design, build the models on that data, validate against the experts, and hand the result back as something they use. Open a domain to see the system, the interfaces, and the results.</p>
     <div class="steps">
       <div class="step"><b>Co-designed standards</b><p>The expert vocabulary and the data design come first, with the people who will use the system.</p></div>
       <div class="step"><b>Probabilistic translation</b><p>A translator carries the expert's judgment into the models and the models' evidence back to the expert, with calibrated uncertainty.</p></div>
       <div class="step"><b>The expert decides</b><p>The system proposes, explains, and defers. The clinician, surgeon, or instructor keeps the decision.</p></div>
     </div>
+    <div class="dcards">
+      <a class="dcard" href="#htixaara" data-nav>
+        <div class="im"><img src="img/xaara-dashboard.png" alt="xAARA clinician dashboard"></div>
+        <div class="body"><span class="eyebrow">Domain 1 · Stroke rehabilitation</span><h3>xAARA</h3><p>Explainable movement assessment in daily clinical use at Shirley Ryan AbilityLab. 94.2% task accuracy, 96.1% less uncertainty than a single clinician.</p><span class="go">Open domain →</span></div>
+      </a>
+      <a class="dcard" href="#htidish" data-nav>
+        <div class="im"><img src="img/dish-pipeline.png" alt="DISH pipeline"></div>
+        <div class="body"><span class="eyebrow">Domain 2 · Surgical site outcomes</span><h3>DISH</h3><p>AI-assisted wound-outcome classification with Johnson &amp; Johnson MedTech and Keck, in pilot with three surgeons on a portal built by Academy students.</p><span class="go">Open domain →</span></div>
+      </a>
+      <a class="dcard" href="#htilearning" data-nav>
+        <div class="im"><img src="img/learning-layers.png" alt="Layers of the learning model"></div>
+        <div class="body"><span class="eyebrow">Domain 3 · The learning project</span><h3>A computable model of reflective learning</h3><p>The Academy's own pedagogy, modeled from 35 syllabi with Verizon as partner, with the translator as its engine.</p><span class="go">Open domain →</span></div>
+      </a>
+      <a class="dcard" href="#htiva" data-nav>
+        <div class="im"><img src="img/xaara-capture.jpg" alt="Capture setup"></div>
+        <div class="body"><span class="eyebrow">Next · Veterans Affairs</span><h3>Upper-limb function in Veterans</h3><p>Invited $800,000 full proposal with Hines VA and Shirley Ryan AbilityLab. Co-Investigator at 50% effort; stroke and spinal cord injury.</p><span class="go">Open program →</span></div>
+      </a>
+    </div>
+  </div>
+</section>
 
-    <div class="section">
-      <div class="domain">
+<section class="view" id="v-htixaara" data-title="HTI Lab · xAARA">
+  <div class="wrap">
+    <p><a class="back hl" href="#hti" data-nav>← HTI Lab Research</a></p>
+    <div class="domain">
         <div class="left">
           <p class="eyebrow">Domain 1 · Stroke rehabilitation</p>
           <h3>xAARA</h3>
@@ -315,10 +360,13 @@ footer .cta{color:var(--white);font-size:.95rem;letter-spacing:.02em;text-transf
           <figure class="fig"><div class="im"><img src="img/xaara-entropy.png" alt="Normalized entropy of the automated task score"></div><figcaption>Uncertainty of the automated score across stages: a 96.1% reduction.</figcaption></figure>
         </div>
       </div>
-    </div>
+  </div>
+</section>
 
-    <div class="section">
-      <div class="domain">
+<section class="view" id="v-htidish" data-title="HTI Lab · DISH">
+  <div class="wrap">
+    <p><a class="back hl" href="#hti" data-nav>← HTI Lab Research</a></p>
+    <div class="domain">
         <div class="left">
           <p class="eyebrow">Domain 2 · Surgical site outcomes</p>
           <h3>DISH</h3>
@@ -333,10 +381,13 @@ footer .cta{color:var(--white);font-size:.95rem;letter-spacing:.02em;text-transf
           <figure class="fig"><div class="im"><img src="img/dish-surgeons.png" alt="Agreement between two surgeons across image pairs"></div><figcaption>What the first annotations showed: where two surgeons agree and where they do not.</figcaption></figure>
         </div>
       </div>
-    </div>
+  </div>
+</section>
 
-    <div class="section">
-      <div class="domain">
+<section class="view" id="v-htilearning" data-title="HTI Lab · Learning">
+  <div class="wrap">
+    <p><a class="back hl" href="#hti" data-nav>← HTI Lab Research</a></p>
+    <div class="domain">
         <div class="left">
           <p class="eyebrow">Domain 3 · The learning project</p>
           <h3>A computable model of reflective learning</h3>
@@ -350,10 +401,13 @@ footer .cta{color:var(--white);font-size:.95rem;letter-spacing:.02em;text-transf
           <figure class="fig wide"><div class="im"><img src="img/learning-editory.png" alt="A student project populated through the layers"></div><figcaption>A student venture populated through the layers.</figcaption></figure>
         </div>
       </div>
-    </div>
+  </div>
+</section>
 
-    <div class="section">
-      <div class="domain">
+<section class="view" id="v-htiva" data-title="HTI Lab · VA program">
+  <div class="wrap">
+    <p><a class="back hl" href="#hti" data-nav>← HTI Lab Research</a></p>
+    <div class="domain">
         <div class="left">
           <p class="eyebrow">Next · Veterans Affairs</p>
           <h3>Automated quantification of upper-limb function in Veterans</h3>
@@ -363,7 +417,6 @@ footer .cta{color:var(--white);font-size:.95rem;letter-spacing:.02em;text-transf
           <figure class="fig wide"><div class="im"><img src="img/xaara-capture.jpg" alt="Capture setup to be deployed at Hines VA"></div><figcaption>The capture and assessment system to be deployed at Hines VA.</figcaption></figure>
         </div>
       </div>
-    </div>
   </div>
 </section>
 
@@ -464,18 +517,18 @@ footer .cta{color:var(--white);font-size:.95rem;letter-spacing:.02em;text-transf
   <div class="wrap">
     <p class="eyebrow arrow">Funding &amp; partners</p>
     <h2 style="margin-top:18px">Programs, sponsors, and collaborators</h2>
-    <p class="lead">Click a card for details. Logos appear when the files are placed in <code>img/logos/</code>; until then each card carries a text mark.</p>
+    <p class="lead">Click a card for details.</p>
     <div class="grid" id="fgrid">
-      <div class="fcard"><div class="logo"><img src="img/logos/va.png" alt="" onerror="this.remove()"><span class="mark">U.S. Department of Veterans Affairs</span></div><div class="body"><span class="role">Invited full proposal · Co-Investigator 50%</span><span class="amt">$800,000 · 4 years</span><p class="muted">Automated Quantification of Upper-Limb Function in Veterans with Neurological Deficits</p><div class="more">PI Dr. Monica A. Perez (Hines VA; Shirley Ryan AbilityLab). Co-Is Prof. Thanassis Rikakis (30%), Dr. Mary Ellen Stoykov (30%), Tamim Ahmed (50%); additional co-investigators Drs. James Patton, Milap Sandhu, William Z. Rymer, and Steven L. Wolf. Aim 1 tracks recovery in 50 Veterans with stroke during inpatient rehabilitation; Aim 2 extends the framework to GRASSP in 50 Veterans with cervical spinal cord injury. I lead deployment at Hines VA, the GRASSP extension, and the network-based analysis of change. Pre-proposal approved; full proposal invited (2026).</div><span class="hint">Click for details</span></div></div>
-      <div class="fcard"><div class="logo"><img src="img/logos/jnj.png" alt="" onerror="this.remove()"><span class="mark">Johnson &amp; Johnson MedTech</span></div><div class="body"><span class="role">Lead faculty · pilot proposal in preparation</span><span class="amt">~$270,000 · 2027–2028</span><p class="muted">Clinical pilot of DISH with the Keck School of Medicine</p><div class="more">Prepared with Michael Kanazawa as the preliminary-data step toward an R01-scale NIH or NSF submission. The current pilot with three surgeons runs on the annotation portal Academy students built in the 2025 research sprint, which I led as principal investigator. Also the start of a working connection between the Academy and USC's medical school, in which medical products are designed at the Academy and led by students and faculty.</div><span class="hint">Click for details</span></div></div>
-      <div class="fcard"><div class="logo"><img src="img/logos/jnj.png" alt="" onerror="this.remove()"><span class="mark">J&amp;J MedTech Research Sprint</span></div><div class="body"><span class="role">Principal Investigator · 2025</span><span class="amt">Ten-student sprint</span><p class="muted">Delivered the surgical annotation portal</p><div class="more">Ten students chosen for transdisciplinary balance, one appointed project manager, the client's deadlines as the schedule. The portal met every requirement the stakeholders set and is now in use in the surgical pilot. The students' first product for a real client.</div><span class="hint">Click for details</span></div></div>
+      <div class="fcard"><div class="logo" style="--tile:#194980"><img src="img/logos/va.png" alt="" onerror="this.remove()"><span class="mark">U.S. Department of Veterans Affairs</span></div><div class="body"><span class="role">Invited full proposal · Co-Investigator 50%</span><span class="amt">$800,000 · 4 years</span><p class="muted">Automated Quantification of Upper-Limb Function in Veterans with Neurological Deficits</p><div class="more">PI Dr. Monica A. Perez (Hines VA; Shirley Ryan AbilityLab). Co-Is Prof. Thanassis Rikakis (30%), Dr. Mary Ellen Stoykov (30%), Tamim Ahmed (50%); additional co-investigators Drs. James Patton, Milap Sandhu, William Z. Rymer, and Steven L. Wolf. Aim 1 tracks recovery in 50 Veterans with stroke during inpatient rehabilitation; Aim 2 extends the framework to GRASSP in 50 Veterans with cervical spinal cord injury. I lead deployment at Hines VA, the GRASSP extension, and the network-based analysis of change. Pre-proposal approved; full proposal invited (2026).</div><span class="hint">Click for details</span></div></div>
+      <div class="fcard"><div class="logo" style="--tile:#ea1502"><img src="img/logos/jnj.png" alt="" onerror="this.remove()"><span class="mark">Johnson &amp; Johnson MedTech</span></div><div class="body"><span class="role">Lead faculty · pilot proposal in preparation</span><span class="amt">~$270,000 · 2027–2028</span><p class="muted">Clinical pilot of DISH with the Keck School of Medicine</p><div class="more">Prepared with Michael Kanazawa as the preliminary-data step toward an R01-scale NIH or NSF submission. The current pilot with three surgeons runs on the annotation portal Academy students built in the 2025 research sprint, which I led as principal investigator. Also the start of a working connection between the Academy and USC's medical school, in which medical products are designed at the Academy and led by students and faculty.</div><span class="hint">Click for details</span></div></div>
+      <div class="fcard"><div class="logo" style="--tile:#ea1502"><img src="img/logos/jnj.png" alt="" onerror="this.remove()"><span class="mark">J&amp;J MedTech Research Sprint</span></div><div class="body"><span class="role">Principal Investigator · 2025</span><span class="amt">Ten-student sprint</span><p class="muted">Delivered the surgical annotation portal</p><div class="more">Ten students chosen for transdisciplinary balance, one appointed project manager, the client's deadlines as the schedule. The portal met every requirement the stakeholders set and is now in use in the surgical pilot. The students' first product for a real client.</div><span class="hint">Click for details</span></div></div>
       <div class="fcard"><div class="logo"><img src="img/logos/nsf.png" alt="" onerror="this.remove()"><span class="mark">National Science Foundation</span></div><div class="body"><span class="role">Doctoral research support</span><span class="amt">NSF #2014499 · 2021–2025</span><p class="muted">Funded the xAARA research during the PhD</p><div class="more">Supported the development of the multi-camera capture system, the hierarchical Bayesian models, and the clinician-in-the-loop assessment pipeline that became xAARA.</div><span class="hint">Click for details</span></div></div>
       <div class="fcard"><div class="logo"><img src="img/logos/nidilrr.png" alt="" onerror="this.remove()"><span class="mark">NIDILRR</span></div><div class="body"><span class="role">Doctoral research support</span><span class="amt">NIDILRR #90REGE0010 · 2019–2025</span><p class="muted">National Institute on Disability, Independent Living, and Rehabilitation Research</p><div class="more">Supported the thirty-month embedded clinical study with therapists and stroke survivors at Shirley Ryan AbilityLab, the data collection of roughly 1,800 task videos, and the co-design of the movement-quality vocabulary.</div><span class="hint">Click for details</span></div></div>
       <div class="fcard"><div class="logo"><img src="img/logos/verizon.png" alt="" onerror="this.remove()"><span class="mark">Verizon</span></div><div class="body"><span class="role">Industry partner · the learning project</span><span class="amt">Reflective-learning toolkit</span><p class="muted">A computable model of how the Academy's students learn</p><div class="more">With Prof. Thanassis Rikakis, Prof. SeoYoon Sung, and the HTI Lab: an auditable skill vocabulary from 35 syllabi, creativity defined within the framework, and a computable model of the stages of learning with the translator as its engine. Manuscript in preparation for Thinking Skills and Creativity; I lead the computational implementation that follows.</div><span class="hint">Click for details</span></div></div>
       <div class="fcard"><div class="logo"><img src="img/logos/sralab.png" alt="" onerror="this.remove()"><span class="mark">Shirley Ryan AbilityLab</span></div><div class="body"><span class="role">Clinical partner · 2019–present</span><span class="amt">xAARA's clinical home</span><p class="muted">Top-ranked rehabilitation hospital in the United States</p><div class="more">Thirty-month embedded study with ten occupational therapists and 107 stroke survivors; daily clinical use of xAARA; 2024 clinical research residency; Arms + Hands Lab (Dr. Monica A. Perez) and Dr. Mary Ellen Stoykov on the VA program; invited Research Seminar Series talk, May 2026.</div><span class="hint">Click for details</span></div></div>
-      <div class="fcard"><div class="logo"><img src="img/logos/keck.png" alt="" onerror="this.remove()"><span class="mark">Keck School of Medicine of USC</span></div><div class="body"><span class="role">Clinical partner</span><span class="amt">Surgical pilot</span><p class="muted">Surgeons piloting DISH; co-partner on the 2027–2028 proposal</p><div class="more">The connection between the Academy and USC's medical school on which the DISH pilot and the pending proposal are built.</div><span class="hint">Click for details</span></div></div>
+      <div class="fcard"><div class="logo" style="--tile:#991b1e"><img src="img/logos/keck.png" alt="" onerror="this.remove()"><span class="mark">Keck School of Medicine of USC</span></div><div class="body"><span class="role">Clinical partner</span><span class="amt">Surgical pilot</span><p class="muted">Surgeons piloting DISH; co-partner on the 2027–2028 proposal</p><div class="more">The connection between the Academy and USC's medical school on which the DISH pilot and the pending proposal are built.</div><span class="hint">Click for details</span></div></div>
       <div class="fcard"><div class="logo"><img src="img/logos/emory.png" alt="" onerror="this.remove()"><span class="mark">Emory University</span></div><div class="body"><span class="role">Clinical collaborator · 2019–present</span><span class="amt">Dr. Steven L. Wolf</span><p class="muted">Five-plus years on xAARA's clinical design and validation</p><div class="more">Motor-rehabilitation specialist and co-author on the TNSRE and CHI papers; additional co-investigator on the VA proposal.</div><span class="hint">Click for details</span></div></div>
-      <div class="fcard"><div class="logo"><img src="img/logos/usc.png" alt="" onerror="this.remove()"><span class="mark">USC Viterbi · Biokinesiology &amp; PT</span></div><div class="body"><span class="role">Doctoral training and committee</span><span class="amt">Across USC</span><p class="muted">Brain-Body Dynamics Lab; Division of Biokinesiology and Physical Therapy</p><div class="more">Hand–object interaction modeling with Prof. Francisco Valero-Cuevas's lab; Prof. James Gordon on the dissertation committee; Pratt Fellowship (2019–2020).</div><span class="hint">Click for details</span></div></div>
+      <div class="fcard"><div class="logo"><img src="img/logos/asu.png" alt="" onerror="this.remove()"><span class="mark">Arizona State University</span></div><div class="body"><span class="role">Research collaborator</span><span class="amt">Cross-institutional collaboration</span><p class="muted">Interactive neurorehabilitation research and student collaboration</p><div class="more">Cross-institutional collaboration on interactive neurorehabilitation and movement assessment, including joint student research spanning Arizona State University, Virginia Tech, and Shirley Ryan AbilityLab.</div><span class="hint">Click for details</span></div></div>
     </div>
   </div>
 </section>
@@ -535,7 +588,7 @@ footer .cta{color:var(--white);font-size:.95rem;letter-spacing:.02em;text-transf
   window.addEventListener('hashchange', route);
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeMenu(); });
 
-  /* ---------- expertise carousel ---------- */
+  /* ---------- expertise book ---------- */
   var S = 'xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"';
   var items = [
     { t:'Embedded Co-Design', c:['Clinician partnerships','Tacit knowledge','Field research'],
@@ -544,40 +597,68 @@ footer .cta{color:var(--white);font-size:.95rem;letter-spacing:.02em;text-transf
     { t:'Data Design', c:['Ontologies','Annotation workflows','Capture systems'],
       d:['A model is only as good as the structure of the data it learns from. Before any model exists I design the data: what is captured, how it is labeled, how it is checked, how it is stored, and the ontology that ties it to how the expert reasons.','For xAARA that meant a multi-camera capture system built from the ground up, segmentation and rating interfaces, and a movement-quality vocabulary that expanded the clinical ontology itself.'],
       svg:'<svg '+S+'><rect x="36" y="40" width="128" height="120" rx="4"/><path d="M36 80h128M36 120h128M78 40v120M121 40v120"/><circle cx="57" cy="60" r="5" fill="#111"/><path d="M90 60h20M133 60h20M48 100h20M90 100h20"/><circle cx="142" cy="100" r="5" fill="#111"/><circle cx="57" cy="140" r="5" fill="#111"/><path d="M90 140h20M133 140h20"/></svg>' },
+    { t:'Feature Engineering', c:['Kinematic features','Movement-quality elements','Representation'],
+      d:['Between raw data and a model sits the representation. I engineer the features the model will learn from: joint angles, velocities, smoothness, coordination, hand aperture, and the compensatory strategies therapists watch for.','The features are chosen with the experts, so that what the model learns from is what the expert looks at, and the result can be explained in their terms.'],
+      svg:'<svg '+S+'><path d="M28 120c14-50 22-50 36 0s22 50 36 0 22-50 36 0"/><path d="M136 60h36M136 72h36M136 84h36"/><path d="M40 160h120"/><path d="M52 160v-22M76 160v-38M100 160v-16M124 160v-44M148 160v-30"/></svg>' },
+    { t:'AI & Algorithm Development', c:['Deep learning','Probabilistic models','Vision and language'],
+      d:['I build the models themselves: convolutional and recurrent networks, transformers, vision-language models, hierarchical Bayesian models, and Dynamic Bayesian Networks, chosen for the problem rather than the fashion.','The algorithms are designed to be calibrated and auditable, so that every output carries an honest measure of confidence and a path back to the evidence.'],
+      svg:'<svg '+S+'><circle cx="100" cy="40" r="10"/><circle cx="60" cy="90" r="10"/><circle cx="140" cy="90" r="10"/><circle cx="40" cy="150" r="10"/><circle cx="80" cy="150" r="10"/><circle cx="120" cy="150" r="10"/><circle cx="160" cy="150" r="10"/><path d="M93 48l-26 34M107 48l26 34M55 100l-10 40M65 100l10 40M135 100l-10 40M145 100l10 40"/></svg>' },
     { t:'Multi-Expert Fusion', c:['Ensembles','Bayesian networks','Calibrated uncertainty'],
       d:['Real products are systems of models, each confident and each partly wrong. The hard part is combining them into one decision a person can live with, with uncertainty that is honest.','xAARA fuses 692 calibrated models through a Dynamic Bayesian Network with entropy-based gating, reaching 94.2% task accuracy and cutting predictive uncertainty by 96.1% against a single clinician.'],
       svg:'<svg '+S+'><circle cx="48" cy="48" r="10"/><circle cx="48" cy="100" r="10"/><circle cx="48" cy="152" r="10"/><circle cx="100" cy="74" r="10"/><circle cx="100" cy="126" r="10"/><circle cx="156" cy="100" r="16"/><path d="M58 52l32 18M58 100l32-20M58 100l32 20M58 148l32-18M110 78l32 16M110 122l32-16"/></svg>' },
+    { t:'Modeling Expert Behavior', c:['Knowledge elicitation','Hierarchical models','Translator'],
+      d:['Surgeons, therapists, coaches, and designers decompose a task in ways they rarely state. I elicit that decomposition, through think-aloud, cued recall, rubrics, and inter-rater agreement, and codify it as a model that mirrors how the expert reasons.','This is the translator at the center of my research: it carries the expert\u2019s judgment into the computation and the computation\u2019s evidence back to the expert, in a form they trust.'],
+      svg:'<svg '+S+'><circle cx="64" cy="70" r="14"/><path d="M42 160c0-28 10-44 22-44s22 16 22 44"/><path d="M92 60c0-18 14-30 32-30s32 12 32 30-14 30-32 30h-10l-14 12v-12"/><circle cx="112" cy="60" r="3" fill="#111"/><circle cx="124" cy="60" r="3" fill="#111"/><circle cx="136" cy="60" r="3" fill="#111"/><path d="M110 120h50M150 114l10 6-10 6M160 150h-50M120 144l-10 6 10 6"/></svg>' },
     { t:'Explainable Decision Support', c:['Explainability','Deferral rules','Clinician dashboards'],
       d:['An expert will not use a system that only outputs a number. The system has to show what it saw, at the level the expert reasons at, and it has to know when to step back.','I design the explanation layer and the rules for when the system decides and when it defers. The clinician dashboard shows the task, the movement phases, and the quality elements behind every score, and the therapist confirms or corrects.'],
       svg:'<svg '+S+'><rect x="40" y="52" width="120" height="84" rx="4"/><path d="M56 118V92M78 118V76M100 118V100M122 118V68M144 118V86"/><circle cx="128" cy="68" r="24" stroke-width="3"/><path d="M146 86l22 22" stroke-width="3"/><path d="M40 160h120"/></svg>' },
     { t:'Deployment in Practice', c:['Clinical workflows','Maintenance','Real users'],
-      d:['A model’s job starts at deployment. The test is whether real people, in a working hospital, come to rely on it.','xAARA is in daily clinical use at the top-ranked rehabilitation hospital in the country; DISH is in pilot with three surgeons; the same process is written into an invited $800,000 VA proposal to deploy at Hines VA and extend to spinal cord injury.'],
+      d:['A model\u2019s job starts at deployment. The test is whether real people, in a working hospital, come to rely on it.','xAARA is in daily clinical use at the top-ranked rehabilitation hospital in the country; DISH is in pilot with three surgeons; the same process is written into an invited $800,000 VA proposal to deploy at Hines VA and extend to spinal cord injury.'],
       svg:'<svg '+S+'><path d="M28 100h40M68 100l-8-8M68 100l-8 8"/><rect x="76" y="56" width="96" height="88" rx="4"/><path d="M124 72v56M96 100h56"/><path d="M76 144h96M100 144v16M148 144v16"/></svg>' },
+    { t:'Human Movement & Stroke Recovery', c:['Upper-extremity function','Movement quality','Clinical assessment'],
+      d:['Seven years with stroke survivors and the therapists who treat them taught me how function returns to an arm: reach, transport, manipulation, release, and the compensations that hide a deficit.','I work in the standardized assessments clinicians trust, the ARAT and the GRASSP, and in the kinematics behind them, so that a computational result means something in the clinic.'],
+      svg:'<svg '+S+'><circle cx="60" cy="60" r="14"/><path d="M60 74v50M60 124l-18 36M60 124l18 36"/><path d="M60 86l34-16"/><path d="M94 70c16 10 30 26 34 46"/><circle cx="130" cy="118" r="6"/><path d="M60 86c14 22 32 36 56 44" stroke-dasharray="4 6"/><path d="M150 60c8 8 10 20 6 32"/></svg>' },
+    { t:'Image Analysis & Signal Processing', c:['Computer vision','Multi-view video','EEG, EMG, ultrasound'],
+      d:['My doctoral systems run on multi-view video: pose estimation, segmentation, hand-object interaction, and temporal segmentation of movement into phases, including methods for small datasets.','Before that I worked in biomedical signals and imaging: ultrasound elastography reconstruction, near-infrared vein detection, and single-channel EEG analysis, work that produced a provisional patent.'],
+      svg:'<svg '+S+'><rect x="32" y="40" width="80" height="62" rx="3"/><path d="M40 92l18-22 14 14 12-16 20 24"/><circle cx="92" cy="54" r="5"/><path d="M28 150c10 0 10-30 20-30s10 30 20 30 10-30 20-30 10 30 20 30 10-30 20-30 10 30 20 30 10-30 20-30"/><path d="M124 70h44M124 82h44"/></svg>' },
+    { t:'3D Design & Rendering', c:['Blender','Subject-specific hand models','Hand-object interaction'],
+      d:['Movement assessment needs geometry. I build subject-specific 3D hand models in Blender from 3D-scanned objects as reference, used to model hand-object interaction during the ARAT tasks.','That work, with the Valero-Cuevas Brain-Body Dynamics Lab, connects what the cameras see to the mechanics of grasp, and it is how I make a model visible to the people it is built for.'],
+      svg:'<svg '+S+'><path d="M100 36l56 32v64l-56 32-56-32V68z"/><path d="M44 68l56 32 56-32M100 100v64"/><path d="M72 84l28-16 28 16" stroke-dasharray="3 5"/><circle cx="100" cy="100" r="3" fill="#111"/></svg>' },
     { t:'Teaching the Pipeline', c:['Augmented intelligence','Forward deployed roles','Transdisciplinary teams'],
-      d:['Most AI courses teach the model. I teach the whole process, from the first conversation with an expert to a product someone uses, because I have done every stage of it.','In IDSN 543 students design the data structure, design the collection, engineer features, build, audit, evaluate, deploy, and defend, four times in four domains. In the J&J sprint, ten students shipped their first product for a real client.'],
+      d:['Most AI courses teach the model. I teach the whole process, from the first conversation with an expert to a product someone uses, because I have done every stage of it.','In IDSN 543 students design the data structure, design the collection, engineer features, build, audit, evaluate, deploy, and defend, across four domains. In the J&J sprint, ten students shipped their first product for a real client.'],
       svg:'<svg '+S+'><path d="M32 160h136"/><path d="M48 160v-24h24v-24h24v-24h24v-24h24v-24h24"/><circle cx="60" cy="110" r="8"/><path d="M60 118v18M52 126h16M60 136l-8 14M60 136l8 14"/></svg>' }
   ];
-  var i = 0, stack = document.getElementById('stack');
+  var i = 0, book = document.getElementById('book'), pgL = document.getElementById('pgL'), pgR = document.getElementById('pgR');
   var title = document.getElementById('expTitle'), chips = document.getElementById('expChips'), desc = document.getElementById('expDesc'), count = document.getElementById('count');
+  var busy = false;
   function pad(n){ return (n<10?'0':'')+n; }
-  function render(){
-    stack.innerHTML = '';
-    var order = [4,3,2,1,0]; // back to front
-    order.forEach(function(off){
-      var idx = (i+off) % items.length;
-      var d = document.createElement('div');
-      d.className = 'card ' + (off===0 ? 'front' : 'b'+off);
-      d.innerHTML = items[idx].svg; stack.appendChild(d);
-    });
-    title.textContent = items[i].t;
-    chips.innerHTML = items[i].c.map(function(c){ return '<span class="chip">'+c+'</span>'; }).join('');
-    desc.innerHTML = items[i].d.map(function(p){ return '<p>'+p+'</p>'; }).join('');
-    count.textContent = pad(i+1)+' / '+pad(items.length);
+  function chapter(idx){ return '<div class="ch"><div class="n">'+pad(idx+1)+'</div><div class="rule"></div><div class="t">'+items[idx].t+'</div></div>'; }
+  function setText(idx){
+    title.textContent = items[idx].t;
+    chips.innerHTML = items[idx].c.map(function(c){ return '<span class="chip">'+c+'</span>'; }).join('');
+    desc.innerHTML = items[idx].d.map(function(p){ return '<p>'+p+'</p>'; }).join('');
+    count.textContent = pad(idx+1)+' / '+pad(items.length);
   }
-  function dealCard(){ render(); var f = stack.querySelector('.front'); if (f){ f.classList.add('deal'); } }
-  document.getElementById('next').addEventListener('click', function(){ i = (i+1)%items.length; dealCard(); });
-  document.getElementById('prev').addEventListener('click', function(){ i = (i-1+items.length)%items.length; dealCard(); });
-  render();
+  function render(idx){ pgL.innerHTML = chapter(idx); pgR.innerHTML = items[idx].svg; setText(idx); }
+  function turn(dir){
+    if (busy) return; busy = true;
+    var from = i, to = (i + dir + items.length) % items.length;
+    var leaf = document.createElement('div'); leaf.className = 'leaf';
+    if (dir > 0) {
+      leaf.innerHTML = '<div class="face front">'+items[from].svg+'</div><div class="face back">'+chapter(to)+'</div>';
+      pgR.innerHTML = items[to].svg;           // revealed underneath as the leaf turns
+      book.appendChild(leaf); void leaf.offsetWidth; leaf.classList.add('turn');
+    } else {
+      leaf.innerHTML = '<div class="face front">'+items[to].svg+'</div><div class="face back">'+chapter(from)+'</div>';
+      leaf.classList.add('rev'); pgL.innerHTML = chapter(to);
+      book.appendChild(leaf); void leaf.offsetWidth; leaf.classList.add('turnback');
+    }
+    setTimeout(function(){ i = to; render(i); leaf.remove(); busy = false; }, 920);
+  }
+  function dealCard(){ render(i); }
+  document.getElementById('next').addEventListener('click', function(){ turn(1); });
+  document.getElementById('prev').addEventListener('click', function(){ turn(-1); });
+  render(i);
   route();
 
   /* ---------- funding cards ---------- */
