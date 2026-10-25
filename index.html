@@ -88,13 +88,16 @@ p{margin:0}
 .quick span{font-size:.9rem;color:var(--muted)}
 
 /* expertise book */
-.exp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center;margin-top:48px}
+.exp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:start;margin-top:40px}
+.bookwrap{position:sticky;top:96px}
+@media (max-width:860px){.bookwrap{position:static}}
 .bookwrap{display:grid;justify-items:center;gap:26px;perspective:1800px;padding:20px 0}
 .book{position:relative;width:min(100%,520px);aspect-ratio:1.55/1;transform-style:preserve-3d}
 .pg{position:absolute;top:0;bottom:0;width:50%;background:linear-gradient(90deg,#f1f1ee,#f8f8f6);box-shadow:0 24px 60px rgba(0,0,0,.6);display:grid;place-items:center;overflow:hidden}
 .pg.left{left:0;border-radius:6px 0 0 6px;background:linear-gradient(270deg,#e6e6e2,#f4f4f1 18%)}
 .pg.right{right:0;border-radius:0 6px 6px 0;background:linear-gradient(90deg,#e8e8e4,#f6f6f3 16%)}
-.pg svg{width:66%;height:auto}
+.pg img,.leaf .face img{width:92%;height:88%;object-fit:contain;display:block;background:#fff}
+.pg.right,.leaf .front{background:#fff}
 .pg .ch{display:grid;gap:10px;text-align:center;padding:18px}
 .pg .ch .n{font-family:var(--display);font-weight:300;font-size:3rem;color:#111;line-height:1}
 .pg .ch .t{font-family:var(--body);font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:#555}
@@ -107,13 +110,17 @@ p{margin:0}
 .leaf.turn{transform:rotateY(-180deg)}
 .leaf.rev{transform:rotateY(-180deg);transition:none}
 .leaf.rev.turnback{transform:rotateY(0deg);transition:transform .9s cubic-bezier(.4,.1,.2,1)}
-.leaf .face svg{width:66%;height:auto}
+.leaf .front img{border-radius:0 6px 6px 0}
 .exp .text{display:grid;gap:22px}
 .exp h2{font-size:clamp(2rem,3.6vw,2.8rem)}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fg2);border:1px solid var(--rule);border-radius:999px;padding:7px 13px;transition:border-color .3s,color .3s}
 .chip:hover{border-color:var(--fg2);color:var(--white)}
-.exp .desc{display:grid;gap:16px;color:var(--fg2);font-size:1.02rem}
+.exp .desc{display:grid;gap:10px;color:var(--fg2);font-size:.98rem}
+.exp .lbl{font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.exp .built{margin:0;padding-left:1.1em;display:grid;gap:8px}
+.exp .built li{padding-left:.2em}
+.exp .proof{color:var(--white);font-family:var(--display);font-weight:500;font-size:1.05rem;border-left:2px solid var(--fg2);padding-left:14px}
 .ctl{display:flex;align-items:center;gap:14px}
 .ctl button{width:48px;height:48px;border-radius:50%;border:1px solid var(--rule);background:none;color:var(--fg);font-size:1.1rem;cursor:pointer;transition:background .3s,border-color .3s}
 .ctl button:hover{background:var(--white);color:var(--bg);border-color:var(--white)}
@@ -277,7 +284,7 @@ footer .cta{color:var(--white);font-size:.95rem;letter-spacing:.02em;text-transf
       </div>
     </div>
     <div class="quick">
-      <a href="#expertise" data-nav><b>Expertise</b><span>Twelve things I do, with the methods behind each</span></a>
+      <a href="#expertise" data-nav><b>Expertise</b><span>Six things I do, with the methods behind each</span></a>
       <a href="#hti" data-nav><b>HTI Lab Research</b><span>xAARA, DISH, and the learning project, with results</span></a>
       <a href="#teaching" data-nav><b>Teaching</b><span>IDSN 543 and how the pipeline is taught</span></a>
       <a href="#funding" data-nav><b>Funding &amp; Partners</b><span>Programs, sponsors, and collaborators</span></a>
@@ -289,8 +296,9 @@ footer .cta{color:var(--white);font-size:.95rem;letter-spacing:.02em;text-transf
 <section class="view" id="v-expertise" data-title="Expertise">
   <div class="wrap">
     <p class="eyebrow arrow">Areas of expertise</p>
+    <p class="lead" style="margin-top:14px">Eight working areas. Each spread names what I built, the methods and tools by name, and one number that proves it.</p>
     <div class="exp">
-      <div class="bookwrap"><div class="book" id="book" aria-hidden="true"><div class="pg left" id="pgL"></div><div class="pg right" id="pgR"></div><div class="spine"></div></div><div class="ctl"><button id="prev" aria-label="Previous">←</button><button id="next" aria-label="Next">→</button><span class="count" id="count">01 / 12</span></div></div>
+      <div class="bookwrap"><div class="book" id="book" aria-hidden="true"><div class="pg left" id="pgL"></div><div class="pg right" id="pgR"></div><div class="spine"></div></div><div class="ctl"><button id="prev" aria-label="Previous">←</button><button id="next" aria-label="Next">→</button><span class="count" id="count">01 / 08</span></div></div>
       <div class="text">
         <h2 id="expTitle"></h2>
         <div class="chips" id="expChips"></div>
@@ -584,67 +592,80 @@ footer .cta{color:var(--white);font-size:.95rem;letter-spacing:.02em;text-transf
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeMenu(); });
 
   /* ---------- expertise book ---------- */
-  var S = 'xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"';
   var items = [
-    { t:'Embedded Co-Design', c:['Clinician partnerships','Tacit knowledge','Field research'],
-      d:['Experts know more than they can say. A therapist judges a reach in seconds and cannot fully explain the judgment. Most AI teams never sit in the room long enough to learn it.','I embed with the experts for as long as it takes: thirty months with ten therapists for xAARA, surgeons for DISH, faculty for the learning project. The vocabulary they actually use becomes the vocabulary the system uses.'],
-      svg:'<svg '+S+'><rect x="40" y="112" width="120" height="8" rx="2"/><path d="M60 120v40M140 120v40"/><circle cx="68" cy="70" r="12"/><path d="M50 112c0-16 8-26 18-26s18 10 18 26"/><circle cx="132" cy="70" r="12"/><path d="M114 112c0-16 8-26 18-26s18 10 18 26"/><path d="M86 96h28M104 90l10 6-10 6"/></svg>' },
-    { t:'Data Design', c:['Ontologies','Annotation workflows','Capture systems'],
-      d:['A model is only as good as the structure of the data it learns from. Before any model exists I design the data: what is captured, how it is labeled, how it is checked, how it is stored, and the ontology that ties it to how the expert reasons.','For xAARA that meant a multi-camera capture system built from the ground up, segmentation and rating interfaces, and a movement-quality vocabulary that expanded the clinical ontology itself.'],
-      svg:'<svg '+S+'><rect x="36" y="40" width="128" height="120" rx="4"/><path d="M36 80h128M36 120h128M78 40v120M121 40v120"/><circle cx="57" cy="60" r="5" fill="#111"/><path d="M90 60h20M133 60h20M48 100h20M90 100h20"/><circle cx="142" cy="100" r="5" fill="#111"/><circle cx="57" cy="140" r="5" fill="#111"/><path d="M90 140h20M133 140h20"/></svg>' },
-    { t:'Feature Engineering', c:['Kinematic features','Movement-quality elements','Representation'],
-      d:['Between raw data and a model sits the representation. I engineer the features the model will learn from: joint angles, velocities, smoothness, coordination, hand aperture, and the compensatory strategies therapists watch for.','The features are chosen with the experts, so that what the model learns from is what the expert looks at, and the result can be explained in their terms.'],
-      svg:'<svg '+S+'><path d="M28 120c14-50 22-50 36 0s22 50 36 0 22-50 36 0"/><path d="M136 60h36M136 72h36M136 84h36"/><path d="M40 160h120"/><path d="M52 160v-22M76 160v-38M100 160v-16M124 160v-44M148 160v-30"/></svg>' },
-    { t:'AI & Algorithm Development', c:['Deep learning','Probabilistic models','Vision and language'],
-      d:['I build the models themselves: convolutional and recurrent networks, transformers, vision-language models, hierarchical Bayesian models, and Dynamic Bayesian Networks, chosen for the problem rather than the fashion.','The algorithms are designed to be calibrated and auditable, so that every output carries an honest measure of confidence and a path back to the evidence.'],
-      svg:'<svg '+S+'><circle cx="100" cy="40" r="10"/><circle cx="60" cy="90" r="10"/><circle cx="140" cy="90" r="10"/><circle cx="40" cy="150" r="10"/><circle cx="80" cy="150" r="10"/><circle cx="120" cy="150" r="10"/><circle cx="160" cy="150" r="10"/><path d="M93 48l-26 34M107 48l26 34M55 100l-10 40M65 100l10 40M135 100l-10 40M145 100l10 40"/></svg>' },
-    { t:'Multi-Expert Fusion', c:['Ensembles','Bayesian networks','Calibrated uncertainty'],
-      d:['Real products are systems of models, each confident and each partly wrong. The hard part is combining them into one decision a person can live with, with uncertainty that is honest.','xAARA fuses 692 calibrated models through a Dynamic Bayesian Network with entropy-based gating, reaching 94.2% task accuracy and cutting predictive uncertainty by 96.1% against a single clinician.'],
-      svg:'<svg '+S+'><circle cx="48" cy="48" r="10"/><circle cx="48" cy="100" r="10"/><circle cx="48" cy="152" r="10"/><circle cx="100" cy="74" r="10"/><circle cx="100" cy="126" r="10"/><circle cx="156" cy="100" r="16"/><path d="M58 52l32 18M58 100l32-20M58 100l32 20M58 148l32-18M110 78l32 16M110 122l32-16"/></svg>' },
-    { t:'Modeling Expert Behavior', c:['Knowledge elicitation','Hierarchical models','Translator'],
-      d:['Surgeons, therapists, coaches, and designers decompose a task in ways they rarely state. I elicit that decomposition, through think-aloud, cued recall, rubrics, and inter-rater agreement, and codify it as a model that mirrors how the expert reasons.','This is the translator at the center of my research: it carries the expert\u2019s judgment into the computation and the computation\u2019s evidence back to the expert, in a form they trust.'],
-      svg:'<svg '+S+'><circle cx="64" cy="70" r="14"/><path d="M42 160c0-28 10-44 22-44s22 16 22 44"/><path d="M92 60c0-18 14-30 32-30s32 12 32 30-14 30-32 30h-10l-14 12v-12"/><circle cx="112" cy="60" r="3" fill="#111"/><circle cx="124" cy="60" r="3" fill="#111"/><circle cx="136" cy="60" r="3" fill="#111"/><path d="M110 120h50M150 114l10 6-10 6M160 150h-50M120 144l-10 6 10 6"/></svg>' },
-    { t:'Explainable Decision Support', c:['Explainability','Deferral rules','Clinician dashboards'],
-      d:['An expert will not use a system that only outputs a number. The system has to show what it saw, at the level the expert reasons at, and it has to know when to step back.','I design the explanation layer and the rules for when the system decides and when it defers. The clinician dashboard shows the task, the movement phases, and the quality elements behind every score, and the therapist confirms or corrects.'],
-      svg:'<svg '+S+'><rect x="40" y="52" width="120" height="84" rx="4"/><path d="M56 118V92M78 118V76M100 118V100M122 118V68M144 118V86"/><circle cx="128" cy="68" r="24" stroke-width="3"/><path d="M146 86l22 22" stroke-width="3"/><path d="M40 160h120"/></svg>' },
-    { t:'Deployment in Practice', c:['Clinical workflows','Maintenance','Real users'],
-      d:['A model\u2019s job starts at deployment. The test is whether real people, in a working hospital, come to rely on it.','xAARA is in daily clinical use at the top-ranked rehabilitation hospital in the country; DISH is in pilot with three surgeons; the same process is written into an invited $800,000 VA proposal to deploy at Hines VA and extend to spinal cord injury.'],
-      svg:'<svg '+S+'><path d="M28 100h40M68 100l-8-8M68 100l-8 8"/><rect x="76" y="56" width="96" height="88" rx="4"/><path d="M124 72v56M96 100h56"/><path d="M76 144h96M100 144v16M148 144v16"/></svg>' },
-    { t:'Human Movement & Stroke Recovery', c:['Upper-extremity function','Movement quality','Clinical assessment'],
-      d:['Seven years with stroke survivors and the therapists who treat them taught me how function returns to an arm: reach, transport, manipulation, release, and the compensations that hide a deficit.','I work in the standardized assessments clinicians trust, the ARAT and the GRASSP, and in the kinematics behind them, so that a computational result means something in the clinic.'],
-      svg:'<svg '+S+'><circle cx="60" cy="60" r="14"/><path d="M60 74v50M60 124l-18 36M60 124l18 36"/><path d="M60 86l34-16"/><path d="M94 70c16 10 30 26 34 46"/><circle cx="130" cy="118" r="6"/><path d="M60 86c14 22 32 36 56 44" stroke-dasharray="4 6"/><path d="M150 60c8 8 10 20 6 32"/></svg>' },
-    { t:'Image Analysis & Signal Processing', c:['Computer vision','Multi-view video','EEG, EMG, ultrasound'],
-      d:['My doctoral systems run on multi-view video: pose estimation, segmentation, hand-object interaction, and temporal segmentation of movement into phases, including methods for small datasets.','Before that I worked in biomedical signals and imaging: ultrasound elastography reconstruction, near-infrared vein detection, and single-channel EEG analysis, work that produced a provisional patent.'],
-      svg:'<svg '+S+'><rect x="32" y="40" width="80" height="62" rx="3"/><path d="M40 92l18-22 14 14 12-16 20 24"/><circle cx="92" cy="54" r="5"/><path d="M28 150c10 0 10-30 20-30s10 30 20 30 10-30 20-30 10 30 20 30 10-30 20-30 10 30 20 30 10-30 20-30"/><path d="M124 70h44M124 82h44"/></svg>' },
-    { t:'3D Design & Rendering', c:['Blender','Subject-specific hand models','Hand-object interaction'],
-      d:['Movement assessment needs geometry. I build subject-specific 3D hand models in Blender from 3D-scanned objects as reference, used to model hand-object interaction during the ARAT tasks.','That work, with the Valero-Cuevas Brain-Body Dynamics Lab, connects what the cameras see to the mechanics of grasp, and it is how I make a model visible to the people it is built for.'],
-      svg:'<svg '+S+'><path d="M100 36l56 32v64l-56 32-56-32V68z"/><path d="M44 68l56 32 56-32M100 100v64"/><path d="M72 84l28-16 28 16" stroke-dasharray="3 5"/><circle cx="100" cy="100" r="3" fill="#111"/></svg>' },
-    { t:'Teaching the Pipeline', c:['Augmented intelligence','Forward deployed roles','Transdisciplinary teams'],
-      d:['Most AI courses teach the model. I teach the whole process, from the first conversation with an expert to a product someone uses, because I have done every stage of it.','In IDSN 543 students design the data structure, design the collection, engineer features, build, audit, evaluate, deploy, and defend, across four domains. In the J&J sprint, ten students shipped their first product for a real client.'],
-      svg:'<svg '+S+'><path d="M32 160h136"/><path d="M48 160v-24h24v-24h24v-24h24v-24h24v-24h24"/><circle cx="60" cy="110" r="8"/><path d="M60 118v18M52 126h16M60 136l-8 14M60 136l8 14"/></svg>' }
+    { t:'Data design and structures', img:'img/xaara-structure.png', alt:'Hierarchical reasoning structure from task score to movement phases to quality elements',
+      c:['Hierarchical labels','Ontologies','Annotation schemas','Multi-view corpora','SQL / EHR'],
+      built:['A hierarchical representation for stroke assessment: one 0 to 3 ARAT task score, decomposed into movement phases (reach, transport, manipulation, release) and the movement-quality elements under each, with the therapists’ own vocabulary as the label set.',
+             'The capture, segmentation, rating and validation schemas behind a corpus of roughly 1,800 multi-view task videos from 107 stroke survivors, labeled by ten occupational therapists.',
+             'Structured and unstructured EHR context for more than 1,000 surgical patients (MOVER) joined to wound images and surgeon keywords for DISH; a skill-token vocabulary with a domain-specificity score extracted from 35 course syllabi.'],
+      proof:'Expanded the clinical movement-quality ontology itself; the same structure drives three deployed or piloted systems.' },
+    { t:'Human-in-the-loop system architecture', img:'img/xaara-dashboard.png', alt:'xAARA clinician review dashboard',
+      c:['Bidirectional translator','Dynamic Bayesian Networks','Deferral rules','Review interfaces','Feedback loops'],
+      built:['The translator architecture published in Frontiers in AI: a nested network of explicit and tacit components computed by a Dynamic Bayesian Network in two passes, top-down (what the expert expects next) and bottom-up (what the observations propose), with gates for compatibility, coherence and explanatory gain.',
+             'Entropy-based gating that decides when the system scores and when it defers to the clinician, and the review dashboard where a therapist confirms or corrects a task assessment and the correction flows back.',
+             'A surgeon-facing annotation portal for DISH (phone capture, quality gate, category step, keywords), designed and shipped by students under my direction and now running the pilot with three surgeons.'],
+      proof:'Treating therapists agree with the system’s ratings more than 90% of the time; four external clinicians validated it and said they would adopt it.' },
+    { t:'Model development', img:'img/xaara-posterior.png', alt:'Task-score posterior before and after the hierarchical Bayesian intervention',
+      c:['PyTorch · Keras · JAX','CNN · LSTM · Transformers','Vision-language models','Hierarchical Bayesian (PyMC)','Ensembles'],
+      built:['Vision and vision-time-series models for ARAT scoring from multi-view video, automatic temporal segmentation for small datasets (WACV 2025), and hand-object interaction models.',
+             'A hierarchical Bayesian model relating the layers of movement-quality assessment (IEEE TNSRE 2024) and a multi-expert fusion engine of 692 calibrated models combined through a Dynamic Bayesian Network.',
+             'Vision-language models with uncertainty quantification and clinical decision logic for surgical-site classification (DISH); earlier, an RNN + 3D-CNN architecture for ultrasound elastography reconstruction behind a provisional patent.'],
+      proof:'94.2% task accuracy across 88 stroke survivors and a 96.1% reduction in predictive uncertainty relative to a single clinician.' },
+    { t:'Validation and testing', img:'img/dish-surgeons.png', alt:'Agreement between two surgeons across annotated image pairs',
+      c:['Calibration','Inter-rater agreement (κ)','Disagreement analysis','External validation','Entropy metrics'],
+      built:['Validation against the experts themselves: every model output compared with therapist ratings at task, phase and quality level, with the disagreements studied case by case rather than averaged away.',
+             'Calibration and uncertainty reporting for every score (normalized entropy, posterior sharpness) and an independent validation study with four external clinicians.',
+             'For DISH, agreement analysis between two surgeons across the first 60 annotations and a layered annotation design that measurably reduces grade uncertainty.'],
+      proof:'Expert agreement of κ 0.75 (task) and 0.70 (phase) across five raters; DISH layers cut grade uncertainty by 36%.' },
+    { t:'Capture, sensing and signal processing', img:'img/xaara-capture.jpg', alt:'Multi-camera capture setup in the clinic',
+      c:['Multi-camera RGB rigs','OpenPose · MediaPipe','Xsens · SageMotion IMUs','OpenSim (MATLAB API)','EEG · EMG · ultrasound'],
+      built:['The first multi-camera RGB capture system for standardized ARAT assessment, designed, calibrated and maintained from the ground up inside a working hospital.',
+             'An IMU-to-OpenSim inverse-kinematics pipeline (Xsens and SageMotion quaternions, Rajagopal 2015 model) for gait and balance tests, with two commercial IMU systems cross-validated toward reduced-sensor capture.',
+             'Biomedical signal work before the doctorate: near-infrared vein detection for a venipuncture device, EMG/ECG separation by empirical mode decomposition, single-channel EEG affective-state classification.'],
+      proof:'Roughly 1,800 task videos captured over a 30-month embedded study; the pipeline is the measurement backbone of the invited $800,000 VA program.' },
+    { t:'Deployment and operations', img:'img/dish-pipeline.png', alt:'DISH pipeline from wound photo and chart to a calibrated category',
+      c:['Clinical workflow integration','Azure · Docker · Git','IRB / HIPAA','Monitoring and maintenance','Pilot design'],
+      built:['xAARA integrated into the clinical workflow at Shirley Ryan AbilityLab and maintained after deployment, where therapists use it in daily practice without technical support.',
+             'DISH deployed as a web portal in the surgical care pathway, with confidence that updates as annotations accumulate, and a pilot structured to produce the preliminary data for an R01-scale submission.',
+             'Seven years of IRB- and HIPAA-compliant data handling across two hospital systems, and the deployment plan for Hines VA in the Veterans Affairs proposal.'],
+      proof:'In daily clinical use at the top-ranked U.S. rehabilitation hospital; in pilot with three surgeons.' },
+    { t:'3D modeling, interfaces and visualization', img:'img/xaara-rating.png', alt:'Rating interface with the therapists’ movement-quality vocabulary',
+      c:['Blender','Subject-specific hand models','Annotation and rating UIs','Clinician dashboards','Explanation design'],
+      built:['Subject-specific 3D hand models built in Blender from 3D-scanned objects as reference, used to model hand-object interaction during ARAT tasks with the Valero-Cuevas Brain-Body Dynamics Lab.',
+             'The segmentation, rating and validation interfaces therapists used to label the corpus, and the clinician-facing dashboard that shows the task, phases and quality elements behind every score.',
+             'A clinician-facing movement-impairment dashboard for post-acute stroke rehabilitation, built during the 2024 Shirley Ryan AbilityLab residency.'],
+      proof:'Explanations at three levels (task, phase, quality element) are what let therapists confirm or correct a score in minutes.' },
+    { t:'Teaching the full pipeline', img:'img/hti-iq-night.jpg', alt:'HTI x IQ Night: Forward Deployed Engineering',
+      c:['IDSN 543','Brief → build → break → fit → defend','Image · time series · language · video','Client sprints','Forward deployed roles'],
+      built:['IDSN 543: Augmented Intelligence, designed from scratch and taught twice: students design the data structure and the collection, engineer features, then build, audit, evaluate, deploy and defend a model, across four domains.',
+             'The 2025 Johnson & Johnson MedTech research sprint, run as principal investigator: ten students shipped the annotation portal now used in the surgical pilot.',
+             'The HTI x IQ Night session on forward deployed engineering, and the three-course computational module of the Human-Technology Interaction degree.'],
+      proof:'Inclusive practice 3.54 of 4 and questioning and discussion 3.57 in the most recent evaluations; students placed in data-science internships and full-time roles.' }
   ];
   var i = 0, book = document.getElementById('book'), pgL = document.getElementById('pgL'), pgR = document.getElementById('pgR');
   var title = document.getElementById('expTitle'), chips = document.getElementById('expChips'), desc = document.getElementById('expDesc'), count = document.getElementById('count');
   var busy = false;
   function pad(n){ return (n<10?'0':'')+n; }
   function chapter(idx){ return '<div class="ch"><div class="n">'+pad(idx+1)+'</div><div class="rule"></div><div class="t">'+items[idx].t+'</div></div>'; }
+  function plate(idx){ return '<img src="'+items[idx].img+'" alt="'+items[idx].alt+'">'; }
   function setText(idx){
-    title.textContent = items[idx].t;
-    chips.innerHTML = items[idx].c.map(function(c){ return '<span class="chip">'+c+'</span>'; }).join('');
-    desc.innerHTML = items[idx].d.map(function(p){ return '<p>'+p+'</p>'; }).join('');
+    var it = items[idx];
+    title.textContent = it.t;
+    chips.innerHTML = it.c.map(function(c){ return '<span class="chip">'+c+'</span>'; }).join('');
+    desc.innerHTML = '<p class="lbl">Built</p><ul class="built">' + it.built.map(function(b){ return '<li>'+b+'</li>'; }).join('') + '</ul><p class="lbl">Proof</p><p class="proof">'+it.proof+'</p>';
     count.textContent = pad(idx+1)+' / '+pad(items.length);
   }
-  function render(idx){ pgL.innerHTML = chapter(idx); pgR.innerHTML = items[idx].svg; setText(idx); }
+  function render(idx){ pgL.innerHTML = chapter(idx); pgR.innerHTML = plate(idx); setText(idx); }
   function turn(dir){
     if (busy) return; busy = true;
     var from = i, to = (i + dir + items.length) % items.length;
     var leaf = document.createElement('div'); leaf.className = 'leaf';
     if (dir > 0) {
-      leaf.innerHTML = '<div class="face front">'+items[from].svg+'</div><div class="face back">'+chapter(to)+'</div>';
-      pgR.innerHTML = items[to].svg;           // revealed underneath as the leaf turns
+      leaf.innerHTML = '<div class="face front">'+plate(from)+'</div><div class="face back">'+chapter(to)+'</div>';
+      pgR.innerHTML = plate(to);
       book.appendChild(leaf); void leaf.offsetWidth; leaf.classList.add('turn');
     } else {
-      leaf.innerHTML = '<div class="face front">'+items[to].svg+'</div><div class="face back">'+chapter(from)+'</div>';
+      leaf.innerHTML = '<div class="face front">'+plate(to)+'</div><div class="face back">'+chapter(from)+'</div>';
       leaf.classList.add('rev'); pgL.innerHTML = chapter(to);
       book.appendChild(leaf); void leaf.offsetWidth; leaf.classList.add('turnback');
     }
